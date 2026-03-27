@@ -1,0 +1,68 @@
+package com.magistuarmory.item.armor;
+
+// import com.magistuarmory.client.render.ModRender;
+import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.annotation.Nullable;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.equipment.ArmorType;
+
+import java.util.Optional;
+
+
+public class MedievalArmorItem extends ArmorItem implements ISurcoat
+{
+	@Nullable
+	protected HumanoidModel model = null;
+	
+	private final com.magistuarmory.item.armor.ArmorType armortype;
+
+	public MedievalArmorItem(com.magistuarmory.item.armor.ArmorType armortype, net.minecraft.world.item.equipment.ArmorType type, Properties properties)
+	{
+		super(armortype.getMaterial().value(), type, properties.durability(armortype.getDurabilityForType(type)).stacksTo(1));
+		this.armortype = armortype;
+	}
+
+	public com.magistuarmory.item.armor.ArmorType getArmorType()
+	{
+		return this.armortype;
+	}
+
+	/**
+	 * Get the equipment slot this armor item occupies
+	 */
+	public EquipmentSlot getEquipmentSlot()
+	{
+		return this.type.getSlot();
+	}
+
+	@Deprecated(forRemoval = true)
+	@Environment(EnvType.CLIENT)
+	public void loadModel(EntityRendererProvider.Context context)
+	{
+		// Armor model loading disabled for 1.21.4
+		// Optional<ModelLayerLocation> location = this.armortype.getModelLocation();
+		// this.model = location.map(
+		//		l -> new HumanoidModel<>(context.bakeLayer(l))).orElseGet(
+		//				() -> getType() == net.minecraft.world.item.equipment.ArmorType.LEGGINGS ? ModRender.INNER_ARMOR : ModRender.OUTER_ARMOR);
+	}
+
+	@Environment(EnvType.CLIENT)
+	public void setModel(Object model) {
+		this.model = (HumanoidModel) model;
+	}
+
+	@Environment(EnvType.CLIENT)
+	public HumanoidModel<? extends LivingEntity> getArmorModel(EquipmentSlot slot, HumanoidModel<? extends LivingEntity> _default)
+	{
+		if (slot == this.type.getSlot() && this.model != null) {
+			return this.model;
+		}
+		return _default;
+	}
+}

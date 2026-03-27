@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://maven.terraformersmc.com/" }
+    maven { url "https://maven.fabricmc.net/" }
+    maven { url "https://maven.architectury.dev/" }
+}
+
+dependencies {
+    // Minecraft and Fabric base
+    implementation "net.minecraft:minecraft:1.21.4"
+    implementation "net.fabricmc:fabric-loader:0.16.10"
+    
+    // Fabric API
+    implementation "net.fabricmc.fabric-api:fabric-api:0.112.2+1.21.4"
+    
+    // Architectury
+    implementation "dev.architectury:architectury-fabric:13.0.8"
+    
+    // Epic Knights - will be added to mods folder in dev
+    // For development, we just need the addon API available
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+    
+    withSourcesJar()
+}
+
+jar {
+    from sourceSets.main.allSource
+    
+    manifest {
+        attributes(
+            'Implementation-Title': 'Example Epic Knights Addon',
+            'Implementation-Version': version
+        )
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    classifier = 'sources'
+}
+
+// This is a Fabric addon - it doesn't need to be published as a regular mod
+// Place it in ~/.minecraft/mods/ for testing alongside Epic Knights
