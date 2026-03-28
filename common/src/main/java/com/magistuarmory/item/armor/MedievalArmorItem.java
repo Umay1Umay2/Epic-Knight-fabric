@@ -39,15 +39,6 @@ public class MedievalArmorItem extends ArmorItem implements ISurcoat
 		return this.type;
 	}
 
-	/**
-	 * Get the equipment slot this armor item occupies
-	 */
-	@Override
-	public EquipmentSlot getEquipmentSlot()
-	{
-		return super.getEquipmentSlot();
-	}
-
 	@Deprecated(forRemoval = true)
 	@Environment(EnvType.CLIENT)
 	public void loadModel(EntityRendererProvider.Context context)
@@ -67,7 +58,7 @@ public class MedievalArmorItem extends ArmorItem implements ISurcoat
 	@Environment(EnvType.CLIENT)
 	public HumanoidModel getArmorModel(EquipmentSlot slot, HumanoidModel _default)
 	{
-		if (slot == this.getEquipmentSlot() && this.model != null) {
+		if (slot == this.type.getSlot() && this.model != null) {
 			return this.model;
 		}
 		return _default;

@@ -17,7 +17,7 @@ public class MedievalShieldModel extends Model
 	
 	public MedievalShieldModel(ModelPart root) 
 	{
-		super(RenderType::entityCutout);
+		super(root, RenderType::entityCutout);
 		this.root = root;
 		this.plate = new ModelPart[]{root.getChild("plate")};
 		this.handle = root.getChild("handle");
@@ -33,9 +33,4 @@ public class MedievalShieldModel extends Model
 		return this.handle;
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack pose, VertexConsumer vertexconsumer, int i, int j, int color)
-	{
-		this.root.render(pose, vertexconsumer, i, j, color);
-	}
 }

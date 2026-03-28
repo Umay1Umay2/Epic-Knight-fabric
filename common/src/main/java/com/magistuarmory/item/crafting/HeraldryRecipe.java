@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class HeraldryRecipe extends CustomRecipe
 {
-    public static RecipeSerializer<HeraldryRecipe> SERIALIZER = RecipeSerializer.simple((access) -> new HeraldryRecipe(access.getCategory()));
+    public static RecipeSerializer<HeraldryRecipe> SERIALIZER = new CustomRecipe.Serializer<>(HeraldryRecipe::new);
 
     public HeraldryRecipe(CraftingBookCategory category)
     {
@@ -137,7 +137,7 @@ public class HeraldryRecipe extends CustomRecipe
         if (item instanceof MedievalArmorItem armorItem)
         {
             return (EpicKnights.GENERAL_CONFIG.enableSurcoatRecipeForAllArmor || item instanceof ISurcoat) && 
-                   armorItem.getEquipmentSlot().equals(EquipmentSlot.CHEST);
+                   armorItem.getType().getSlot() == EquipmentSlot.CHEST;
         }
         return false;
     }

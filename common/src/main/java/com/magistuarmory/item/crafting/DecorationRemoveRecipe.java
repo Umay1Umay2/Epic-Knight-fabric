@@ -27,7 +27,7 @@ import java.util.List;
 
 public class DecorationRemoveRecipe extends CustomRecipe
 {
-    public static RecipeSerializer<DecorationRemoveRecipe> SERIALIZER = RecipeSerializer.simple((access) -> new DecorationRemoveRecipe(access.getCategory()));
+    public static RecipeSerializer<DecorationRemoveRecipe> SERIALIZER = new CustomRecipe.Serializer<>(DecorationRemoveRecipe::new);
 
     public DecorationRemoveRecipe(CraftingBookCategory category)
     {

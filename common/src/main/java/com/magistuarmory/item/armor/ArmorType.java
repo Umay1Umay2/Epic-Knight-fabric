@@ -1,21 +1,19 @@
 package com.magistuarmory.item.armor;
 
 import com.magistuarmory.client.render.model.ModModels;
-import dev.architectury.registry.registries.DeferredRegister;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.Util;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.equipment.ArmorMaterial;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.equipment.EquipmentAssets;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumMap;
@@ -47,27 +45,16 @@ public final class ArmorType
 		this.enabled = enabled;
 	}
 
-	public ArmorType(DeferredRegister<ArmorMaterial> armorMaterial, ResourceLocation location, ResourceLocation modellocation, float toughness, float knockbackResistance, Integer[] durability, Integer[] defenseForSlot, int enchantmentValue, Holder<SoundEvent> equipSound, boolean enabled, boolean dyeable, Supplier<Ingredient> repairIngredient)
+	private static final TagKey<Item> NO_REPAIR = TagKey.create(Registries.ITEM, new ResourceLocation("magistuarmory:no_repair"));
+
+	public ArmorType(ResourceLocation location, ResourceLocation modellocation, ArmorMaterial material, Integer[] durability, boolean enabled)
 	{
-		this.material = armorMaterial.register(location, () -> {
-			int totalDurability = java.util.Arrays.stream(durability).mapToInt(Integer::intValue).max().orElse(0);
-			ResourceKey<net.minecraft.world.item.equipment.EquipmentAsset> assetId = ResourceKey.create(Registries.EQUIPMENT_ASSET, location);
-			return new ArmorMaterial(
-				totalDurability,
-				Util.make(new EnumMap<>(net.minecraft.world.item.equipment.ArmorType.class), (enumMap) -> {
-					enumMap.put(net.minecraft.world.item.equipment.ArmorType.BOOTS, defenseForSlot[0]);
-					enumMap.put(net.minecraft.world.item.equipment.ArmorType.LEGGINGS, defenseForSlot[1]);
-					enumMap.put(net.minecraft.world.item.equipment.ArmorType.CHESTPLATE, defenseForSlot[2]);
-					enumMap.put(net.minecraft.world.item.equipment.ArmorType.BODY, defenseForSlot[2]);
-					enumMap.put(net.minecraft.world.item.equipment.ArmorType.HELMET, defenseForSlot[3]);
-				}),
-				enchantmentValue,
-				equipSound,
-				repairIngredient,
-				toughness,
-				knockbackResistance
-			);
-		});
+		this(Holder.direct(material), location, modellocation, durability, enabled);
+	}
+
+	public ArmorType(Holder<ArmorMaterial> material, ResourceLocation location, ResourceLocation modellocation, Integer[] durability, boolean enabled)
+	{
+		this.material = material;
 		this.location = location;
 		this.modellocation = modellocation;
 		this.durability = Util.make(new EnumMap<>(net.minecraft.world.item.equipment.ArmorType.class), (enumMap) -> {
@@ -80,14 +67,45 @@ public final class ArmorType
 		this.enabled = enabled;
 	}
 
-	public ArmorType(DeferredRegister<ArmorMaterial> armorMaterials, ResourceLocation location, ResourceLocation modellocation, float toughness, float knockbackResistance, Integer[] durability, Integer[] defenseForSlot, int enchantmentValue, Holder<SoundEvent> equipSound, boolean enabled, boolean dyeable)
+	public ArmorType(ResourceLocation location, ResourceLocation modellocation, float toughness, float knockbackResistance, Integer[] durability, Integer[] defenseForSlot, int enchantmentValue, Holder<SoundEvent> equipSound, boolean enabled, boolean dyeable, TagKey<Item> repairIngredient)
 	{
-		this(armorMaterials, location, modellocation, toughness, knockbackResistance, durability, defenseForSlot, enchantmentValue, equipSound, enabled, dyeable, () -> Ingredient.EMPTY);
+		ArmorMaterial armorMaterial = new ArmorMaterial(
+			java.util.Arrays.stream(durability).mapToInt(Integer::intValue).max().orElse(0),
+			Util.make(new EnumMap<>(net.minecraft.world.item.equipment.ArmorType.class), (enumMap) -> {
+				enumMap.put(net.minecraft.world.item.equipment.ArmorType.BOOTS, defenseForSlot[0]);
+				enumMap.put(net.minecraft.world.item.equipment.ArmorType.LEGGINGS, defenseForSlot[1]);
+				enumMap.put(net.minecraft.world.item.equipment.ArmorType.CHESTPLATE, defenseForSlot[2]);
+				enumMap.put(net.minecraft.world.item.equipment.ArmorType.BODY, defenseForSlot[2]);
+				enumMap.put(net.minecraft.world.item.equipment.ArmorType.HELMET, defenseForSlot[3]);
+			}),
+			enchantmentValue,
+			equipSound,
+			toughness,
+			knockbackResistance,
+			repairIngredient,
+			EquipmentAssets.createId(location.toString())
+		);
+		this.material = Holder.direct(armorMaterial);
+		this.location = location;
+		this.modellocation = modellocation;
+		this.durability = Util.make(new EnumMap<>(net.minecraft.world.item.equipment.ArmorType.class), (enumMap) -> {
+			enumMap.put(net.minecraft.world.item.equipment.ArmorType.BOOTS, durability[0]);
+			enumMap.put(net.minecraft.world.item.equipment.ArmorType.LEGGINGS, durability[1]);
+			enumMap.put(net.minecraft.world.item.equipment.ArmorType.CHESTPLATE, durability[2]);
+			enumMap.put(net.minecraft.world.item.equipment.ArmorType.BODY, durability[2]);
+			enumMap.put(net.minecraft.world.item.equipment.ArmorType.HELMET, durability[3]);
+		});
+		this.enabled = enabled;
 	}
 
-	public ArmorType(DeferredRegister<ArmorMaterial> armorMaterials, ResourceLocation location, ResourceLocation modellocation, float toughness, float knockbackResistance, Integer[] durability, Integer[] defenseForSlot, int enchantmentValue, Holder<SoundEvent> equipSound, boolean enabled, boolean dyeable, String repairitemtag)
+	public ArmorType(ResourceLocation location, ResourceLocation modellocation, float toughness, float knockbackResistance, Integer[] durability, Integer[] defenseForSlot, int enchantmentValue, Holder<SoundEvent> equipSound, boolean enabled, boolean dyeable)
 	{
-		this(armorMaterials, location, modellocation, toughness, knockbackResistance, durability, defenseForSlot, enchantmentValue, equipSound, enabled, dyeable, () -> net.minecraft.world.item.crafting.Ingredient.fromTag(TagKey.create(Registries.ITEM, ResourceLocation.parse(repairitemtag))));
+		this(location, modellocation, toughness, knockbackResistance, durability, defenseForSlot, enchantmentValue, equipSound, enabled, dyeable, NO_REPAIR);
+	}
+
+	public ArmorType(ResourceLocation location, ResourceLocation modellocation, float toughness, float knockbackResistance, Integer[] durability, Integer[] defenseForSlot, int enchantmentValue, Holder<SoundEvent> equipSound, boolean enabled, boolean dyeable, String repairitemtag)
+	{
+		this(location, modellocation, toughness, knockbackResistance, durability, defenseForSlot, enchantmentValue, equipSound, enabled, dyeable, TagKey.create(Registries.ITEM, ResourceLocation.parse(repairitemtag)));
 	}
 
 	public String getName() {
@@ -120,7 +138,7 @@ public final class ArmorType
 		return this.material.value().equipSound();
 	}
 
-	public Supplier<Ingredient> getRepairIngredient() {
+	public TagKey<Item> getRepairIngredient() {
 		return this.material.value().repairIngredient();
 	}
 	

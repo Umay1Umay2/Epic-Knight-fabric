@@ -2,6 +2,7 @@ package com.magistuarmory.util;
 
 import com.magistuarmory.EpicKnights;
 import com.magistuarmory.config.MobEquipmentConfig;
+import com.magistuarmory.item.armor.MedievalArmorItem;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -65,15 +66,21 @@ public class MobEquipment
             Optional<Item> itemoptional = BuiltInRegistries.ITEM.getOptional(resloc);
             if (itemoptional.isPresent())
             {
+                if (itemoptional.get() instanceof MedievalArmorItem medieval)
+                {
+                    switch (medieval.getType().getSlot())
+                    {
+                        case HEAD -> this.helmets.add(medieval);
+                        case CHEST, BODY -> this.chestplates.add(medieval);
+                        case LEGS -> this.leggings.add(medieval);
+                        case FEET -> this.boots.add(medieval);
+                    }
+                    continue;
+                }
                 if (itemoptional.get() instanceof ArmorItem armor)
                 {
-                    switch (armor.getEquipmentSlot())
-                    {
-                        case HEAD -> this.helmets.add(armor);
-                        case CHEST -> this.chestplates.add(armor);
-                        case LEGS -> this.leggings.add(armor);
-                        case FEET -> this.boots.add(armor);
-                    }
+                    // Vanilla armor items no longer expose slot metadata in 1.21.4.
+                    // Ignore generic armor items here to avoid mapping issues.
                     continue;
                 }
                 if (itemoptional.get() instanceof ShieldItem shield)
