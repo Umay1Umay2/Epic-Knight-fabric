@@ -72,11 +72,6 @@ public class ModItemTier
 		return toolMaterial.enchantmentValue();
 	}
 
-	public Ingredient getRepairIngredient()
-	{
-		return Ingredient.fromTag(toolMaterial.repairItems());
-	}
-
 	public float getSpeed()
 	{
 		return toolMaterial.speed();

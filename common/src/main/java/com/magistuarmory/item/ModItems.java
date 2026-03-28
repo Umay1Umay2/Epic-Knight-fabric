@@ -237,16 +237,16 @@ public class ModItems extends ModItemsProvider
 			Component.translatable(EpicKnights.ID + ".darkening_template.upgrade_description"),
 			Component.translatable(EpicKnights.ID + ".darkening_template.base_slot_description"),
 			Component.translatable(EpicKnights.ID + ".darkening_template.additions_slot_description"),
-			List.of(),
-			List.of()));
+			List.<ResourceLocation>of(),
+			List.<ResourceLocation>of()));
 	public static final @Nullable RegistrySupplier<Item> GILDING_TEMPLATE = INSTANCE.addIngredientItem("gilding_template", () -> new SmithingTemplateItem(
 			Component.translatable(EpicKnights.ID + ".gilding_template.applies_to"),
 			Component.translatable(EpicKnights.ID + ".gilding_template.ingredients"),
 			Component.translatable(EpicKnights.ID + ".gilding_template.upgrade_description"),
 			Component.translatable(EpicKnights.ID + ".gilding_template.base_slot_description"),
 			Component.translatable(EpicKnights.ID + ".gilding_template.additions_slot_description"),
-			List.of(),
-			List.of()));
+			List.<ResourceLocation>of(),
+			List.<ResourceLocation>of()));
 	
 	//Decorations
 	public static final RegistrySupplier<DyeableArmorDecorationItem> TORSE_AND_MANTLE_DECORATION = INSTANCE.addDyeableArmorDecorationItem("torse_and_mantle_decoration", () -> new DyeableArmorDecorationItem(ResourceLocation.fromNamespaceAndPath(EpicKnights.ID, "torse_and_mantle"), new Properties(), net.minecraft.world.item.equipment.ArmorType.HELMET));

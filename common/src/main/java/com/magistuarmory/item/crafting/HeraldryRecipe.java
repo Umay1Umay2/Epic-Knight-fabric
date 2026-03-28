@@ -3,6 +3,7 @@ package com.magistuarmory.item.crafting;
 import com.magistuarmory.EpicKnights;
 import com.magistuarmory.item.MedievalShieldItem;
 import com.magistuarmory.item.armor.ISurcoat;
+import com.magistuarmory.item.armor.MedievalArmorItem;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;

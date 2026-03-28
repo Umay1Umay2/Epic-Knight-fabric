@@ -45,7 +45,7 @@ public final class ArmorType
 		this.enabled = enabled;
 	}
 
-	private static final TagKey<Item> NO_REPAIR = TagKey.create(Registries.ITEM, new ResourceLocation("magistuarmory:no_repair"));
+	private static final TagKey<Item> NO_REPAIR = TagKey.create(Registries.ITEM, ResourceLocation.parse("magistuarmory:no_repair"));
 
 	public ArmorType(ResourceLocation location, ResourceLocation modellocation, ArmorMaterial material, Integer[] durability, boolean enabled)
 	{

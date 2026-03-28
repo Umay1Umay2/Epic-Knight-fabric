@@ -111,11 +111,6 @@ public class ArmorDecorationRecipe extends CustomRecipe {
     }
 
     @Override
-    public boolean canCraftInDimensions(int n, int m) {
-        return n * m >= 2;
-    }
-
-    @Override
     public RecipeSerializer<? extends CustomRecipe> getSerializer() {
         return getSerializerInstance();
     }

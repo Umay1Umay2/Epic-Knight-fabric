@@ -93,12 +93,6 @@ public class DecorationRemoveRecipe extends CustomRecipe
     }
 
     @Override
-    public boolean canCraftInDimensions(int i, int j)
-    {
-        return i * j >= 1;
-    }
-
-    @Override
     public RecipeSerializer<? extends CustomRecipe> getSerializer() {
         return getSerializerInstance();
     }
