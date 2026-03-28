@@ -1,6 +1,8 @@
 package com.magistuarmory.client.render;
 
 import com.magistuarmory.api.item.ModItemsProvider;
+import com.magistuarmory.client.render.model.ModModels;
+import com.magistuarmory.client.render.tileentity.PaviseBlockRenderer;
 import com.magistuarmory.item.*;
 import com.magistuarmory.item.armor.MedievalArmorItem;
 import dev.architectury.injectables.annotations.ExpectPlatform;

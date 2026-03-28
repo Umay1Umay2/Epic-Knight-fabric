@@ -12,7 +12,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.LivingEntity;
 
 @Environment(EnvType.CLIENT)
-public class CrownArmorModel<T extends LivingEntity> extends ArmorDecorationModel<T>
+public class CrownArmorModel extends ArmorDecorationModel
 {
 	public CrownArmorModel(ModelPart root)
 	{

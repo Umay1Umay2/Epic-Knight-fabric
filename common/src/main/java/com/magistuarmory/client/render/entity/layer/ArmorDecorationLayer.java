@@ -52,7 +52,7 @@ public class ArmorDecorationLayer<T extends LivingEntity> implements ArmorPatter
    private final ResourceLocation basePatternTexture;
    private final ArmorDecorationModelSet decorationModels;
 
-   public ArmorDecorationLayer(ArmorDecorationModelSet<T> decorationModels, EntityRendererProvider.Context context, ResourceLocation location)
+   public ArmorDecorationLayer(ArmorDecorationModelSet decorationModels, EntityRendererProvider.Context context, ResourceLocation location)
    {
       this.decorationModels = decorationModels;
       this.coatModel = new SurcoatModel(context.bakeLayer(new ModelLayerLocation(location, "decoration")));
@@ -92,7 +92,7 @@ public class ArmorDecorationLayer<T extends LivingEntity> implements ArmorPatter
             for (ArmorDecorationItem.DecorationInfo info : createDecorations(getDecorationTags(stack)))
             {
                ResourceLocation location = info.location();
-               ArmorDecorationModel<T> model = this.getArmorDecorationModel(location);
+               ArmorDecorationModel model = this.getArmorDecorationModel(location);
                if (model != null)
                {
                   // TODO: restore parent model copying once rendering is updated for 1.21.4

@@ -38,7 +38,7 @@ public class MedievalArmorItem extends ArmorItem implements ISurcoat
 	 */
 	public EquipmentSlot getEquipmentSlot()
 	{
-		return this.type.getSlot();
+		return this.getType().getSlot();
 	}
 
 	@Deprecated(forRemoval = true)
@@ -58,9 +58,9 @@ public class MedievalArmorItem extends ArmorItem implements ISurcoat
 	}
 
 	@Environment(EnvType.CLIENT)
-	public HumanoidModel<? extends LivingEntity> getArmorModel(EquipmentSlot slot, HumanoidModel<? extends LivingEntity> _default)
+	public HumanoidModel getArmorModel(EquipmentSlot slot, HumanoidModel _default)
 	{
-		if (slot == this.type.getSlot() && this.model != null) {
+		if (slot == this.getEquipmentSlot() && this.model != null) {
 			return this.model;
 		}
 		return _default;

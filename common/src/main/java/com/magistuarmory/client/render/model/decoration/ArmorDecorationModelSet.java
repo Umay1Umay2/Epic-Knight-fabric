@@ -16,9 +16,9 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 @Environment(EnvType.CLIENT)
-public class ArmorDecorationModelSet<T extends LivingEntity>
+public class ArmorDecorationModelSet
 {
-    final Map<ModelLayerLocation, ArmorDecorationModel<T>> map = new HashMap<>();
+    final Map<ModelLayerLocation, ArmorDecorationModel> map = new HashMap<>();
 
     public void registerDecorations(List<RegistrySupplier<? extends ArmorDecoration>> decorations, EntityRendererProvider.Context context) {
         for (Supplier<? extends ArmorDecoration> supplier : decorations)
@@ -28,12 +28,12 @@ public class ArmorDecorationModelSet<T extends LivingEntity>
         }
     }
 
-    public ArmorDecorationModel<T> get(ModelLayerLocation location)
+    public ArmorDecorationModel get(ModelLayerLocation location)
     {
         return this.map.get(location);
     }
 
-    public ArmorDecorationModel<T> get(ResourceLocation location)
+    public ArmorDecorationModel get(ResourceLocation location)
     {
         return this.get(new ModelLayerLocation(location, "decoration"));
     }
