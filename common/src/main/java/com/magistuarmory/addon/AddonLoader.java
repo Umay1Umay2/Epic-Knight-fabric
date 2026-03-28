@@ -2,6 +2,7 @@ package com.magistuarmory.addon;
 
 import com.magistuarmory.util.EpicKnightsLogger;
 import dev.architectury.platform.Platform;
+import net.fabricmc.api.EnvType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -83,7 +84,7 @@ public class AddonLoader {
      * @param clientRegistry the client-side addon registry
      */
     public static void initClientAddons(AddonClientRegistry clientRegistry) {
-        if (!Platform.getEnv().isClient()) {
+        if (Platform.getEnv() != EnvType.CLIENT) {
             return;
         }
         
@@ -102,7 +103,7 @@ public class AddonLoader {
      * @param registry the server-side addon registry
      */
     public static void initServerAddons(AddonRegistry registry) {
-        if (Platform.getEnv().isClient()) {
+        if (Platform.getEnv() == EnvType.CLIENT) {
             return;
         }
         

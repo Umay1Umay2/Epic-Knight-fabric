@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.equipment.ArmorType;
 
 import java.util.Optional;
 
@@ -21,11 +20,13 @@ public class MedievalArmorItem extends ArmorItem implements ISurcoat
 	protected HumanoidModel model = null;
 	
 	private final com.magistuarmory.item.armor.ArmorType armortype;
+	private final net.minecraft.world.item.equipment.ArmorType type;
 
 	public MedievalArmorItem(com.magistuarmory.item.armor.ArmorType armortype, net.minecraft.world.item.equipment.ArmorType type, Properties properties)
 	{
 		super(armortype.getMaterial().value(), type, properties.durability(armortype.getDurabilityForType(type)).stacksTo(1));
 		this.armortype = armortype;
+		this.type = type;
 	}
 
 	public com.magistuarmory.item.armor.ArmorType getArmorType()
@@ -33,12 +34,18 @@ public class MedievalArmorItem extends ArmorItem implements ISurcoat
 		return this.armortype;
 	}
 
+	public net.minecraft.world.item.equipment.ArmorType getType()
+	{
+		return this.type;
+	}
+
 	/**
 	 * Get the equipment slot this armor item occupies
 	 */
+	@Override
 	public EquipmentSlot getEquipmentSlot()
 	{
-		return this.getType().getSlot();
+		return super.getEquipmentSlot();
 	}
 
 	@Deprecated(forRemoval = true)

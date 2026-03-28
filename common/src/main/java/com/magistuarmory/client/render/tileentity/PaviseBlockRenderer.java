@@ -70,12 +70,13 @@ public class PaviseBlockRenderer implements BlockEntityRenderer<PaviseBlockEntit
 
 	public void renderPatterns(PaviseBlockEntity pavise, PoseStack pose, MultiBufferSource buffer, int p, int overlay)
 	{
-		if (this.model instanceof MedievalShieldModel shieldmodel)
+		if (this.model instanceof MedievalShieldModel)
 		{
+			MedievalShieldModel shieldmodel = (MedievalShieldModel) this.model;
 			pose.pushPose();
 			pose.scale(1.0F, -1.0F, -1.0F);
 			DyeColor basecolor = pavise.getBaseColor();
-			VertexConsumer vertexconsumer = this.getBaseMaterial(basecolor != null).sprite().wrap(ItemRenderer.getFoilBufferDirect(buffer, this.model.renderType(this.getBaseMaterial(basecolor != null).atlasLocation()), true, pavise.hasFoil()));
+			VertexConsumer vertexconsumer = this.getBaseMaterial(basecolor != null).sprite().wrap(ItemRenderer.getFoilBuffer(buffer, this.model.renderType(this.getBaseMaterial(basecolor != null).atlasLocation()), true, pavise.hasFoil()));
 			shieldmodel.handle().render(pose, vertexconsumer, p, overlay, 0xFFFFFF);
 			BannerPatternLayers patterns = pavise.getPatterns();
 			List<Pair<Holder<BannerPattern>, DyeColor>> list = patterns == null ? new ArrayList<>() : patterns.layers().stream().map(l -> Pair.of(l.pattern(), l.color())).collect(Collectors.toList());

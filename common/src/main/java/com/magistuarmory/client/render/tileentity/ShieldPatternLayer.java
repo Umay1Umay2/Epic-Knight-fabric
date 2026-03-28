@@ -18,18 +18,18 @@ public interface ShieldPatternLayer extends PatternLayer
     @Override
     default VertexConsumer baseVertexConsumer(MultiBufferSource buffer, boolean withPattern, boolean hasfoil)
     {
-        return getBaseMaterial(withPattern).buffer(buffer, RenderType::entityCutout, hasfoil);
+        return getBaseMaterial(withPattern).buffer(buffer, RenderType::entityCutout, false, hasfoil);
     }
 
     @Override
     default VertexConsumer basePatternVertexConsumer(MultiBufferSource buffer, boolean hasfoil)
     {
-        return getBasePatternMaterial().buffer(buffer, RenderType::entityNoOutline, hasfoil);
+        return getBasePatternMaterial().buffer(buffer, RenderType::entityNoOutline, false, hasfoil);
     }
 
     @Override
     default VertexConsumer patternVertexConsumer(MultiBufferSource buffer, ResourceLocation patternlocation, boolean hasfoil)
     {
-        return getPatternMaterial(patternlocation).buffer(buffer, RenderType::entityNoOutline, hasfoil);
+        return getPatternMaterial(patternlocation).buffer(buffer, RenderType::entityNoOutline, false, hasfoil);
     }
 }

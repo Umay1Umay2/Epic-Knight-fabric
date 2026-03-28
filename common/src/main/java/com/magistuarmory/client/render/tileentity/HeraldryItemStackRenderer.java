@@ -24,23 +24,22 @@ public class HeraldryItemStackRenderer implements ShieldPatternLayer {
         // no-op
     }
 
-    @Override
-    public void renderByItem(Object stack, Object transform, PoseStack pose, MultiBufferSource buffer, int p, int overlay) {
+        public void renderByItem(Object stack, Object transform, PoseStack pose, MultiBufferSource buffer, int p, int overlay) {
         // no-op rendering stub for 1.21.4 compatibility
     }
 
     @Override
     public Material getBaseMaterial(boolean withPattern) {
-        return new Material(Sheets.SHIELD_SHEET, new ResourceLocation("minecraft", "entity/shield/base"));
+        return new Material(Sheets.SHIELD_SHEET, ResourceLocation.parse("minecraft:entity/shield/base"));
     }
 
     @Override
     public Material getBasePatternMaterial() {
-        return new Material(Sheets.SHIELD_SHEET, new ResourceLocation("minecraft", "entity/shield/base"));
+        return new Material(Sheets.SHIELD_SHEET, ResourceLocation.parse("minecraft:entity/shield/base"));
     }
 
     @Override
     public Material getPatternMaterial(ResourceLocation patternLocation) {
-        return new Material(Sheets.SHIELD_SHEET, new ResourceLocation("minecraft", "entity/shield/base"));
+        return new Material(Sheets.SHIELD_SHEET, ResourceLocation.parse("minecraft:entity/shield/base"));
     }
 }
