@@ -96,8 +96,7 @@ public class PaviseBlock extends AbstractBannerBlock
 		return this.defaultBlockState().setValue(ROTATION, RotationSegment.convertToSegment(blockPlaceContext.getRotation()));
 	}
 	
-	@Override
-	public @NotNull ItemStack getCloneItemStack(BlockGetter reader, BlockPos blockpos, BlockState blockstate) 
+public @NotNull ItemStack getCloneItemStack(BlockGetter reader, BlockPos blockpos, BlockState blockstate) 
 	{
 		if (reader.getBlockEntity(blockpos) instanceof PaviseBlockEntity pavise)
 			return pavise.getStack();

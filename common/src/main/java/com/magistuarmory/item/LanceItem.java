@@ -6,7 +6,6 @@ import com.magistuarmory.component.ModDataComponents;
 import com.magistuarmory.network.PacketLanceCollision;
 import com.magistuarmory.util.CombatHelper;
 import com.magistuarmory.util.ModDamageSources;
-import dev.architectury.registry.item.ItemPropertiesRegistry;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.annotation.Nullable;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -370,6 +369,6 @@ public class LanceItem extends MedievalWeaponItem
 	@Environment(EnvType.CLIENT)
 	public void registerModelProperty()
 	{
-		ItemPropertiesRegistry.register(this, ResourceLocation.fromNamespaceAndPath(EpicKnights.ID, "raised"), (stack, level, entity, i) -> this.isRaised(entity) ? 1 : 0);
+		// Item model property registration disabled for 1.21.4 compatibility.
 	}
 }

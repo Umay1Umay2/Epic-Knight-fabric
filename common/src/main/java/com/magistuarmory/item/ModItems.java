@@ -9,6 +9,8 @@ import com.magistuarmory.item.armor.*;
 import com.magistuarmory.misc.ModBannerPatternTags;
 import dev.architectury.platform.Platform;
 import dev.architectury.registry.registries.RegistrySupplier;
+import net.minecraft.core.Holder;
+import net.minecraft.world.item.equipment.ArmorMaterials;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.annotation.Nullable;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -117,8 +119,8 @@ public class ModItems extends ModItemsProvider
 	public static final @Nullable RegistrySupplier<MedievalArmorItem> LAMELLAR_CHESTPLATE = INSTANCE.addMedievalArmorItem("lamellar_chestplate", ArmorTypes.LAMELLAR, net.minecraft.world.item.equipment.ArmorType.CHESTPLATE, new Properties());
 	public static final @Nullable RegistrySupplier<MedievalArmorItem> LAMELLAR_BOOTS = INSTANCE.addMedievalArmorItem("lamellar_boots", ArmorTypes.LAMELLAR, net.minecraft.world.item.equipment.ArmorType.BOOTS, new Properties());
 
-	public static final RegistrySupplier<MedievalHorseArmorItem> BARDING = INSTANCE.items.register("barding", () -> new MedievalHorseArmorItem(ArmorMaterials.DIAMOND, ResourceLocation.fromNamespaceAndPath(EpicKnights.ID, "textures/entity/horse/armor/barding.png"), false, new Properties().stacksTo(1)));
-	public static final RegistrySupplier<MedievalHorseArmorItem> CHAINMAIL_HORSE_ARMOR = INSTANCE.items.register("chainmail_horse_armor", () -> new MedievalHorseArmorItem(ArmorMaterials.IRON, ResourceLocation.fromNamespaceAndPath(EpicKnights.ID, "textures/entity/horse/armor/horse_armor_chainmail.png"), false, new Properties().stacksTo(1)));
+	public static final RegistrySupplier<MedievalHorseArmorItem> BARDING = INSTANCE.items.register("barding", () -> new MedievalHorseArmorItem(Holder.direct(ArmorMaterials.DIAMOND), ResourceLocation.fromNamespaceAndPath(EpicKnights.ID, "textures/entity/horse/armor/barding.png"), false, new Properties().stacksTo(1)));
+	public static final RegistrySupplier<MedievalHorseArmorItem> CHAINMAIL_HORSE_ARMOR = INSTANCE.items.register("chainmail_horse_armor", () -> new MedievalHorseArmorItem(Holder.direct(ArmorMaterials.IRON), ResourceLocation.fromNamespaceAndPath(EpicKnights.ID, "textures/entity/horse/armor/horse_armor_chainmail.png"), false, new Properties().stacksTo(1)));
 
 	public static final BiFunction<ModItemTier, Properties, RegistrySupplier<MedievalShieldItem>> HEATER_SHIELD_SUPPLY = (material, prop) -> INSTANCE.addMedievalShieldItem(material.getMaterialName() + "_heatershield", "heatershield", prop, material, true, true, SHIELDS_CONFIG.get("heaterShield"));
 	public static final BiFunction<ModItemTier, Properties, RegistrySupplier<MedievalShieldItem>> TARGET_SUPPLY = (material, prop) -> INSTANCE.addMedievalShieldItem(material.getMaterialName() + "_target", "target", prop, material, false, true, SHIELDS_CONFIG.get("target"));
@@ -236,17 +238,17 @@ public class ModItems extends ModItemsProvider
 			Component.translatable(EpicKnights.ID + ".darkening_template.ingredients"),
 			Component.translatable(EpicKnights.ID + ".darkening_template.upgrade_description"),
 			Component.translatable(EpicKnights.ID + ".darkening_template.base_slot_description"),
-			Component.translatable(EpicKnights.ID + ".darkening_template.additions_slot_description"),
 			List.<ResourceLocation>of(),
-			List.<ResourceLocation>of()));
+			List.<ResourceLocation>of(),
+			new Properties()));
 	public static final @Nullable RegistrySupplier<Item> GILDING_TEMPLATE = INSTANCE.addIngredientItem("gilding_template", () -> new SmithingTemplateItem(
 			Component.translatable(EpicKnights.ID + ".gilding_template.applies_to"),
 			Component.translatable(EpicKnights.ID + ".gilding_template.ingredients"),
 			Component.translatable(EpicKnights.ID + ".gilding_template.upgrade_description"),
 			Component.translatable(EpicKnights.ID + ".gilding_template.base_slot_description"),
-			Component.translatable(EpicKnights.ID + ".gilding_template.additions_slot_description"),
 			List.<ResourceLocation>of(),
-			List.<ResourceLocation>of()));
+			List.<ResourceLocation>of(),
+			new Properties()));
 	
 	//Decorations
 	public static final RegistrySupplier<DyeableArmorDecorationItem> TORSE_AND_MANTLE_DECORATION = INSTANCE.addDyeableArmorDecorationItem("torse_and_mantle_decoration", () -> new DyeableArmorDecorationItem(ResourceLocation.fromNamespaceAndPath(EpicKnights.ID, "torse_and_mantle"), new Properties(), net.minecraft.world.item.equipment.ArmorType.HELMET));

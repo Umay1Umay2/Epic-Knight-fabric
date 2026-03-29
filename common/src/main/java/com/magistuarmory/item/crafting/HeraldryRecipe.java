@@ -104,13 +104,7 @@ public class HeraldryRecipe extends CustomRecipe
     }
 
     @Override
-    public boolean canCraftInDimensions(int p_44298_, int p_44299_)
-    {
-        return p_44298_ * p_44299_ >= 2;
-    }
-
-    @Override
-    public @NotNull RecipeSerializer<?> getSerializer()
+    public @NotNull RecipeSerializer<? extends CustomRecipe> getSerializer()
     {
         return getSerializerInstance();
     }

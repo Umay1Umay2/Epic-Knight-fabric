@@ -1,6 +1,5 @@
 package com.magistuarmory.item;
 
-import dev.architectury.registry.item.ItemPropertiesRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.core.component.DataComponents;
@@ -120,15 +119,6 @@ public class MedievalCrossbowItem extends CrossbowItem implements IHasModelPrope
 	@Environment(EnvType.CLIENT)
 	public void registerModelProperty()
 	{
-		ItemPropertiesRegistry.register(this, ResourceLocation.withDefaultNamespace("pull"), (stack, level, entity, i) -> {
-			if (entity == null) {
-				return 0.0F;
-			} else {
-				return CrossbowItem.isCharged(stack) ? 0.0F : (float)(stack.getUseDuration(entity) - entity.getUseItemRemainingTicks()) / (float)getPullTime(stack, entity);
-			}
-		});
-		ItemPropertiesRegistry.register(this, ResourceLocation.withDefaultNamespace("pulling"), (stack, level, entity, i) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack && !CrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
-		ItemPropertiesRegistry.register(this, ResourceLocation.withDefaultNamespace("charged"), (stack, level, entity, i) -> entity != null && CrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
-		ItemPropertiesRegistry.register(this, ResourceLocation.withDefaultNamespace("firework"), (stack, level, entity, i) -> entity != null && CrossbowItem.isCharged(stack) && stack.has(DataComponents.CHARGED_PROJECTILES) && stack.get(DataComponents.CHARGED_PROJECTILES).contains(Items.FIREWORK_ROCKET) ? 1.0F : 0.0F);
+		// Item model property registration disabled for 1.21.4 compatibility.
 	}
 }
