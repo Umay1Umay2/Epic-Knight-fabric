@@ -1,7 +1,11 @@
 package com.magistuarmory.block;
 
+import com.magistuarmory.EpicKnights;
 import com.mojang.math.Axis;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -11,6 +15,8 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BannerBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.RotationSegment;
@@ -36,7 +42,7 @@ public class PaviseUpperCollisionBlock extends Block
 	
 	public PaviseUpperCollisionBlock()
 	{
-		super(Properties.of().dynamicShape().noTerrainParticles().sound(SoundType.EMPTY));
+		super(Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.tryBuild(EpicKnights.ID, "pavise_upper_collision"))).dynamicShape().noTerrainParticles().sound(SoundType.EMPTY));
 	}
 	
 	@Override

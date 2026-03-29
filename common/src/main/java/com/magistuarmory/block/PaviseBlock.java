@@ -58,7 +58,6 @@ public class PaviseBlock extends AbstractBannerBlock
 		super(color, prop);
 		this.shieldId = shieldId;
 		this.entityType = entityType;
-		this.registerDefaultState(this.stateDefinition.any().setValue(ROTATION, 0));
 		this.codec = RecordCodecBuilder.mapCodec((instance) -> instance.group(DyeColor.CODEC.fieldOf("color").forGetter(AbstractBannerBlock::getColor), propertiesCodec()).apply(instance, (a, b) -> new PaviseBlock(a, b, shieldId, entityType)));
 	}
 	
